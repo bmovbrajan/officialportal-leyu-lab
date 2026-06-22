@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>开云 · 信息索引与资料整理</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+            background: linear-gradient(145deg, #fde9dd 0%, #f5d6c6 45%, #ecd0be 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            padding: 2rem 1.2rem;
+            line-height: 1.7;
+            color: #2d241a;
+        }
+
+        .page-card {
+            max-width: 780px;
+            width: 100%;
+            background: rgba(255, 249, 243, 0.92);
+            backdrop-filter: blur(3px);
+            border-radius: 36px;
+            box-shadow: 0 12px 40px rgba(160, 100, 70, 0.18), 0 4px 12px rgba(0,0,0,0.03);
+            padding: 2.8rem 2.4rem;
+            transition: all 0.2s ease;
+        }
+
+        @media (max-width: 500px) {
+            body { padding: 1.2rem 0.8rem; }
+            .page-card { padding: 1.8rem 1.2rem; border-radius: 28px; }
+        }
+
+        /* 文章标题 */
+        .essay-title {
+            font-size: 2.2rem;
+            font-weight: 600;
+            letter-spacing: -0.01em;
+            color: #3f2b1f;
+            margin-bottom: 0.5rem;
+            border-left: 6px solid #b78e74;
+            padding-left: 1.2rem;
+        }
+
+        .essay-meta {
+            font-size: 0.95rem;
+            color: #8b7565;
+            margin-bottom: 2.2rem;
+            padding-left: 1.8rem;
+            border-bottom: 1px dashed #dcc9bb;
+            padding-bottom: 0.8rem;
+        }
+
+        /* 导语 */
+        .lead {
+            font-size: 1.15rem;
+            background: #f8ede6;
+            padding: 1.2rem 1.6rem;
+            border-radius: 36px;
+            margin-bottom: 2rem;
+            color: #3d2d20;
+            font-weight: 400;
+            box-shadow: inset 0 1px 6px rgba(200, 150, 120, 0.08);
+        }
+
+        .lead strong {
+            font-weight: 600;
+            color: #7b5a46;
+        }
+
+        /* 正文段落 */
+        .text-block {
+            margin-bottom: 1.8rem;
+        }
+
+        .text-block p {
+            margin-bottom: 1.2rem;
+            text-align: justify;
+        }
+
+        .text-block p:last-child {
+            margin-bottom: 0;
+        }
+
+        /* 引用提示块 */
+        .quote-tip {
+            background: #efe1d7;
+            padding: 1.4rem 1.8rem;
+            border-radius: 24px;
+            margin: 2rem 0 1.6rem 0;
+            font-style: normal;
+            box-shadow: 0 2px 10px rgba(150, 90, 60, 0.06);
+            border-left: 6px solid #b78e74;
+        }
+
+        .quote-tip .label {
+            font-size: 0.9rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+            color: #7f624e;
+            text-transform: uppercase;
+            display: block;
+            margin-bottom: 0.3rem;
+        }
+
+        .quote-tip .quote-text {
+            font-size: 1rem;
+            color: #2f221a;
+            line-height: 1.6;
+        }
+
+        /* 圆角按钮感链接 */
+        .btn-link {
+            display: inline-block;
+            background: #dcc0ae;
+            color: #2f1f15;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 0.35rem 1.2rem;
+            border-radius: 60px;
+            transition: background 0.2s, box-shadow 0.2s;
+            box-shadow: 0 2px 6px rgba(140, 90, 60, 0.08);
+            border: 1px solid rgba(255, 245, 235, 0.4);
+        }
+
+        .btn-link:hover {
+            background: #ceab94;
+            box-shadow: 0 4px 12px rgba(140, 90, 60, 0.15);
+            text-decoration: none;
+        }
+
+        /* 场景网格——简洁两列 */
+        .scenario-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.2rem;
+            margin: 2rem 0 1.8rem 0;
+        }
+
+        .scenario-item {
+            background: #f6eae2;
+            border-radius: 24px;
+            padding: 1.2rem 1.2rem 1.4rem;
+            box-shadow: 0 2px 6px rgba(160, 110, 80, 0.04);
+            transition: transform 0.1s;
+        }
+
+        .scenario-item:hover {
+            transform: translateY(-2px);
+        }
+
+        .scenario-item h4 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #5e4232;
+            margin-bottom: 0.3rem;
+        }
+
+        .scenario-item p {
+            font-size: 0.95rem;
+            color: #4f3b2d;
+            line-height: 1.5;
+        }
+
+        @media (max-width: 520px) {
+            .scenario-grid {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+        }
+
+        /* 访问句 */
+        .visit-sentence {
+            margin-top: 2.4rem;
+            padding-top: 1.4rem;
+            border-top: 1px solid #dcc9bb;
+            font-size: 1.1rem;
+            color: #3b2b20;
+            text-align: center;
+            background: #fcf3ec;
+            border-radius: 60px;
+            padding: 1.2rem 1.6rem;
+            box-shadow: inset 0 1px 8px rgba(180, 130, 100, 0.04);
+        }
+
+        .visit-sentence a {
+            color: #4d3424;
+            text-decoration: none;
+            font-weight: 600;
+            padding: 0.2rem 0.4rem;
+            border-radius: 30px;
+            background: #e7d3c5;
+            transition: background 0.2s;
+        }
+
+        .visit-sentence a:hover {
+            background: #d4bbaa;
+        }
+
+        /* FAQ 摘要 */
+        .faq-digest {
+            margin: 2rem 0 1rem;
+        }
+
+        .faq-digest summary {
+            font-weight: 500;
+            color: #5d4535;
+            padding: 0.6rem 0;
+            cursor: pointer;
+            border-bottom: 1px dashed #dac5b6;
+            list-style: none;
+        }
+
+        .faq-digest summary::-webkit-details-marker {
+            display: none;
+        }
+
+        .faq-digest summary::before {
+            content: "▸ ";
+            color: #b78e74;
+            font-size: 1.2rem;
+        }
+
+        .faq-digest[open] summary::before {
+            content: "▾ ";
+        }
+
+        .faq-digest .faq-answer {
+            padding: 0.8rem 1.2rem 0.4rem 1.2rem;
+            color: #3d2d20;
+            font-size: 0.98rem;
+        }
+
+        .tiny-note {
+            margin-top: 2.2rem;
+            font-size: 0.9rem;
+            color: #8a6f5c;
+            text-align: center;
+            border-top: 1px solid #e3d2c5;
+            padding-top: 1.2rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="page-card">
+        <h1 class="essay-title">资料整理与索引手记</h1>
+        <div class="essay-meta">一份关于信息脉络的温和梳理 · 2025</div>
+
+        <div class="lead">
+            <strong>索引</strong>不是终点，而是让散落的知识彼此照见。从日常记录到深层关联，我们希望为那些认真对待信息的人，提供一种更安静的整理方式。
+        </div>
+
+        <div class="text-block">
+            <p>过去几年，我们一直在观察人们如何与自己的数字资料相处。书签、笔记、截图、文档、零散的想法——它们往往沉睡在文件夹深处，等待一个被重新发现的契机。但大多数时候，我们缺少的不是存储空间，而是将资料重新编织起来的线索。</p>
+            <p>一个有效的索引系统，不应该是冰冷的分类标签，而是一个有温度的导航网。它让你在翻阅时产生“原来它们之间还有这样的联系”的感悟。基于这种理解，我们慢慢搭建了一套偏向个人化的索引逻辑：以主题为节点，以时间与语义为线索，让每一条记录都被赋予上下文。</p>
+        </div>
+
+        <!-- 引用提示 -->
+        <div class="quote-tip">
+            <span class="label">✎ 提示</span>
+            <div class="quote-text">“整理资料不是囤积，而是为未来的自己铺一条可以回访的路。一个链接、一段摘要、一句批注，都可能成为下一次灵感的起点。”</div>
+        </div>
+
+        <div class="text-block">
+            <p>在实际使用中，我们遇到最多的问题不是“怎么存”，而是“怎么找”。很多人的资料库随着时间增长变得臃肿，却丧失了可用性。于是我们尝试反其道而行——不是增加更多功能，而是做减法：只保留索引、标签、简短备注，以及一个干净的搜索入口。这种克制反而让资料库变得更透气。</p>
+            <p>如果你也在做类似的尝试，或许会理解这种感受：当你能迅速定位到两年前某个不起眼的参考链接时，那种“啊，原来你在这里”的踏实感，便是整理的意义之一。</p>
+        </div>
+
+        <!-- 场景卡片 -->
+        <div class="scenario-grid">
+            <div class="scenario-item">
+                <h4>读书笔记</h4>
+                <p>把书中关键段落、个人批注和章节脉络集中索引，方便日后温故。</p>
+            </div>
+            <div class="scenario-item">
+                <h4>兴趣研究</h4>
+                <p>对一个主题进行多源收集，用时间线或概念图轻量串联。</p>
+            </div>
+            <div class="scenario-item">
+                <h4>工作复盘</h4>
+                <p>项目文档、会议记录、反思日志，用标签与日期快速回溯。</p>
+            </div>
+            <div class="scenario-item">
+                <h4>日常灵感</h4>
+                <p>碎片想法、随手截图、对话片段，以关键词建立模糊关联。</p>
+            </div>
+        </div>
+
+        <!-- FAQ 摘要 -->
+        <details class="faq-digest">
+            <summary>FAQ 摘要 · 关于资料索引的常见问题</summary>
+            <div class="faq-answer">
+                <p><strong>索引会不会太复杂？</strong> 不，我们推崇极小的规则：一条笔记，三个标签，一段自由摘要。不需要学习复杂的语法。</p>
+                <p><strong>适合团队使用吗？</strong> 目前更偏向个人场景，但索引结构可以导出分享。团队协作正在逐步优化中。</p>
+                <p><strong>能保留我原有的资料吗？</strong> 是的，索引只记录位置和描述，不会改动你的原始文件。</p>
+            </div>
+        </details>
+
+        <!-- 访问句 —— 自然嵌入链接 -->
+        <div class="visit-sentence">
+            🌿 若你也在寻找一种更清爽的信息整理方式，不妨来看看 <a href="https://kaixyun.com">开云</a> 所倡导的索引思路。
+        </div>
+
+        <div class="tiny-note">
+            从资料到脉络，每一步都算数。
+        </div>
+    </div>
+</body>
+</html>
