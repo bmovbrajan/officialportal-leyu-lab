@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>足球直播 · 赛事信号与观赛指南</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+            background: #f9fafc;
+            color: #1a202c;
+            line-height: 1.7;
+        }
+        .hero {
+            background: linear-gradient(145deg, #0b1121 0%, #1a2639 100%);
+            padding: 5rem 2rem 4rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .hero::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at 20% 80%, rgba(0, 180, 255, 0.08) 0%, transparent 60%);
+            pointer-events: none;
+        }
+        .hero h1 {
+            font-size: clamp(2.2rem, 6vw, 3.6rem);
+            font-weight: 600;
+            letter-spacing: -0.02em;
+            color: #f0f4ff;
+            margin-bottom: 1rem;
+            position: relative;
+            z-index: 1;
+        }
+        .hero p {
+            font-size: 1.15rem;
+            max-width: 700px;
+            margin: 0 auto;
+            color: #b0c4de;
+            position: relative;
+            z-index: 1;
+            font-weight: 350;
+        }
+        .hero .tagline {
+            display: inline-block;
+            margin-top: 1.5rem;
+            padding: 0.45rem 1.4rem;
+            border: 1px solid rgba(100, 180, 255, 0.25);
+            border-radius: 60px;
+            color: #8ab4f8;
+            font-size: 0.9rem;
+            letter-spacing: 0.3px;
+            background: rgba(255, 255, 255, 0.02);
+            backdrop-filter: blur(4px);
+            position: relative;
+            z-index: 1;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 3rem 2rem 4rem;
+        }
+
+        .intro-block {
+            max-width: 860px;
+            margin: 0 auto 3.5rem;
+        }
+        .intro-block p {
+            font-size: 1.08rem;
+            margin-bottom: 1.2rem;
+            color: #2d3748;
+        }
+        .intro-block strong {
+            color: #1a202c;
+            font-weight: 600;
+        }
+        .intro-block a {
+            color: #1b6bb0;
+            text-decoration: underline;
+            text-underline-offset: 3px;
+            text-decoration-thickness: 0.5px;
+            transition: color 0.2s;
+        }
+        .intro-block a:hover {
+            color: #0f4a7a;
+        }
+
+        .highlight-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 1.8rem;
+            margin: 3rem 0 3.5rem;
+        }
+        .card {
+            background: #ffffff;
+            border-radius: 20px;
+            padding: 2rem 1.8rem;
+            box-shadow: 0 10px 25px -8px rgba(0, 0, 0, 0.04), 0 2px 6px rgba(0, 0, 0, 0.02);
+            border: 1px solid #eef1f5;
+            transition: transform 0.2s ease, box-shadow 0.25s ease;
+        }
+        .card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 20px 35px -12px rgba(0, 60, 120, 0.08);
+            border-color: #dce3ec;
+        }
+        .card h3 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+            color: #0b1a30;
+            letter-spacing: -0.01em;
+        }
+        .card h3 span {
+            display: inline-block;
+            background: #dfe8f5;
+            color: #1b4b77;
+            font-size: 0.75rem;
+            font-weight: 500;
+            padding: 0.1rem 0.7rem;
+            border-radius: 40px;
+            margin-left: 0.5rem;
+            vertical-align: middle;
+            letter-spacing: 0.2px;
+        }
+        .card p {
+            font-size: 0.98rem;
+            color: #3d4b5e;
+            margin-bottom: 0.3rem;
+        }
+        .card .sub {
+            font-size: 0.88rem;
+            color: #6a7b92;
+            margin-top: 0.6rem;
+            border-top: 1px solid #f0f3f8;
+            padding-top: 0.7rem;
+        }
+
+        .use-scenario {
+            background: #f2f6fc;
+            border-radius: 28px;
+            padding: 2.4rem 2.6rem;
+            margin: 3rem 0 3rem;
+            border: 1px solid #e3eaf2;
+        }
+        .use-scenario h2 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #0b1f38;
+            margin-bottom: 1.2rem;
+        }
+        .use-scenario ul {
+            list-style: none;
+            padding: 0;
+        }
+        .use-scenario li {
+            padding: 0.7rem 0 0.7rem 2rem;
+            position: relative;
+            font-size: 1rem;
+            color: #1e2f44;
+            border-bottom: 1px dashed #dde3ed;
+        }
+        .use-scenario li:last-child {
+            border-bottom: none;
+        }
+        .use-scenario li::before {
+            content: '⚽';
+            position: absolute;
+            left: 0;
+            top: 0.65rem;
+            font-size: 1.1rem;
+        }
+        .use-scenario .tip-note {
+            margin-top: 1.2rem;
+            background: #ffffffd0;
+            padding: 0.9rem 1.3rem;
+            border-radius: 60px;
+            font-size: 0.92rem;
+            color: #2e4a6a;
+            border: 1px solid #d3ddeb;
+            display: inline-block;
+            backdrop-filter: blur(2px);
+        }
+
+        .faq-mini {
+            background: #ffffff;
+            border-radius: 24px;
+            padding: 2rem 2.2rem;
+            margin-top: 2.8rem;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.01);
+            border: 1px solid #e7edf5;
+        }
+        .faq-mini h3 {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #0c1f36;
+            margin-bottom: 1.3rem;
+        }
+        .faq-item {
+            padding: 0.8rem 0;
+            border-bottom: 1px solid #edf2f8;
+        }
+        .faq-item:last-child {
+            border-bottom: none;
+        }
+        .faq-q {
+            font-weight: 500;
+            color: #152b44;
+            margin-bottom: 0.25rem;
+        }
+        .faq-a {
+            color: #43536b;
+            font-size: 0.95rem;
+        }
+
+        .footer-note {
+            text-align: center;
+            margin-top: 3.5rem;
+            padding-top: 1.8rem;
+            border-top: 1px solid #e2e9f2;
+            font-size: 0.9rem;
+            color: #5f718a;
+        }
+        .footer-note a {
+            color: #1b6bb0;
+            text-decoration: none;
+            border-bottom: 1px dotted #b2c9e0;
+        }
+        .footer-note a:hover {
+            border-bottom: 1px solid #1b6bb0;
+        }
+
+        @media (max-width: 640px) {
+            .hero {
+                padding: 3.5rem 1.2rem 3rem;
+            }
+            .container {
+                padding: 2rem 1.2rem 3rem;
+            }
+            .use-scenario {
+                padding: 1.8rem 1.5rem;
+            }
+            .card {
+                padding: 1.5rem 1.3rem;
+            }
+            .faq-mini {
+                padding: 1.5rem 1.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<section class="hero">
+    <h1>足球直播 · 信号与节奏</h1>
+    <p>从赛事分发到观赛体验，理解一场比赛如何抵达你的屏幕。<br>不只是链接，是信号链路、时间线与场景选择。</p>
+    <span class="tagline">基于公开赛事资源 · 信息聚合参考</span>
+</section>
+
+<div class="container">
+
+    <!-- 摘要式介绍 -->
+    <div class="intro-block">
+        <p>一场顶级足球赛事从球场到终端，要经历采集、编码、分发和同步等多个环节。而大多数观众所感知的「<strong>足球直播</strong>」，实际上是经过编排的信号流与多路源的整合呈现。通过 <a href="https://cnweb-zuqiuzhibo.com">足球直播</a> 这一信息入口，可以快速了解当前可获取的公开赛事信号分布与观赛资源摘要，帮助你在不同时段、不同设备间找到相对合适的观看路径。</p>
+        <p>从欧洲五大联赛到国内赛事，从杯赛到友谊赛，直播源的组织方式影响你能否第一时间看到进球、回放或战术分析。这个页面所指向的资源，更侧重于赛事时间线梳理与多信号源提示，而非单一播放器本身。</p>
+    </div>
+
+    <!-- 亮点卡片 产品说明式 -->
+    <div class="highlight-cards">
+        <div class="card">
+            <h3>赛事时间轴 <span>核心</span></h3>
+            <p>按日/周聚合比赛日程，标注各联赛开球时间、对阵及可能的分发渠道。避免在多个平台间盲目切换。</p>
+            <div class="sub">覆盖 30+ 主流联赛及杯赛</div>
+        </div>
+        <div class="card">
+            <h3>信号源备注 <span>参考</span></h3>
+            <p>每个直播入口均附带信号质量、延迟程度、语言解说等备注信息。帮助判断哪种资源更适合当前网络环境。</p>
+            <div class="sub">备注基于历史用户反馈刷新</div>
+        </div>
+        <div class="card">
+            <h3>观赛场景建议 <span>实用</span></h3>
+            <p>根据时段（凌晨/傍晚）、设备（移动/桌面）、网络条件（WiFi/4G）给出直播源选择倾向，减少缓冲与卡顿概率。</p>
+            <div class="sub">非硬性推荐，仅供参考</div>
+        </div>
+    </div>
+
+    <!-- 使用建议 场景化 -->
+    <div class="use-scenario">
+        <h2>常见使用场景</h2>
+        <ul>
+            <li><strong>周末晚高峰</strong> — 多场五大联赛同时开球，建议优先选择标注「低延迟」的信号，并提前 5 分钟进入测试音频同步情况。</li>
+            <li><strong>凌晨场次（欧冠/南美赛事）</strong> — 部分信号源可能提供英语或原声解说，若更看重流畅度，可选择画质适中、延迟较高的备用线路。</li>
+            <li><strong>移动端碎片观赛</strong> — 通勤或午休时，优先使用自适应码率的源，并留意页面提示的「移动端适配」标识。</li>
+            <li><strong>关键比赛回看 / 集锦</strong> — 很多直播源在赛后数小时内仍保留回放功能，可用于复盘战术或错过开球的场次。</li>
+        </ul>
+        <div class="tip-note">💡 页面内每个直播入口均附有简短说明，建议结合自己网络环境与观赛习惯做选择。</div>
+    </div>
+
+    <!-- FAQ摘要 克制说明 -->
+    <div class="faq-mini">
+        <h3>常见疑问 · 简要说明</h3>
+        <div class="faq-item">
+            <div class="faq-q">⚡ 直播源是否稳定？</div>
+            <div class="faq-a">信号源来自公开互联网聚合，稳定性受赛事版权方、分发节点及当地网络影响。页面会标注近期可用性参考，但无法保证 100% 可用。</div>
+        </div>
+        <div class="faq-item">
+            <div class="faq-q">📺 是否需要安装插件或额外软件？</div>
+            <div class="faq-a">绝大多数直播源基于网页播放器（HLS/FLV），无需额外安装。部分源可能弹出提示，请自行判断其安全性。</div>
+        </div>
+        <div class="faq-item">
+            <div class="faq-q">🔒 涉及付费内容吗？</div>
+            <div class="faq-a">页面聚合的信息以公开免费源为主，不引导付费订阅。某些赛事官方转播商可能需要单独付费，请以版权方公告为准。</div>
+        </div>
+        <div class="faq-item">
+            <div class="faq-q">🌐 为什么有些场次没有直播入口？</div>
+            <div class="faq-a">受地域、版权、信号采集时间等限制，部分场次可能延迟上架或仅有音频/文字直播。建议关注页面更新频率。</div>
+        </div>
+    </div>
+
+    <!-- 可信且克制的访问说明 -->
+    <div style="background: #f4f8fe; border-radius: 18px; padding: 1.5rem 2rem; margin: 2.5rem 0 1rem; border-left: 4px solid #1b6bb0;">
+        <p style="font-size: 0.98rem; color: #1d3148; margin-bottom: 0.5rem;"><strong>使用说明 · 信息透明</strong></p>
+        <p style="color: #3b4e69; font-size: 0.93rem;">本页面仅为赛事直播信息的聚合导航，所有链接指向互联网上已有的公开资源。我们不存储、转码或重新分发任何视频流。建议在合法合规前提下使用，并尊重赛事版权。如遇链接失效，属正常现象，可稍后重试或切换同类源。</p>
+    </div>
+
+    <!-- 页脚 自然嵌入链接 -->
+    <div class="footer-note">
+        基于公开信息整理 · 赛事时刻在变，建议定期查看 <a href="https://cnweb-zuqiuzhibo.com">足球直播</a> 获取最新赛程与信号状态。
+    </div>
+
+</div>
+
+</body>
+</html>
